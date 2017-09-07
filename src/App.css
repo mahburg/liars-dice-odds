@@ -6,7 +6,7 @@
 .App {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 4fr;
+  grid-template-rows: 1fr 7fr;
   height: 100vh;
   width: 100vw;
 }
@@ -16,8 +16,13 @@
   padding: 20px;
   color: white;
   grid-column: 1 / 3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
 }
-
+.dice-remaining{
+  color: red;
+}
 .inputs-container{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -40,8 +45,10 @@
 
 
 .stats-container{
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  padding: 15px;
+  /* display: grid; */
+  /* grid-template-columns: repeat(5, 1fr); */
+
 }
 
 .statsItem{

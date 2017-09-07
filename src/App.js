@@ -9,8 +9,32 @@ class App extends Component {
     super();
     this.state = {
       dice: 0,
-      stats: [],
-      summedStats: []
+      data: {
+        labels: [],
+        datasets: [{
+            type:'line',
+            label: 'Odds of at least',
+            data: [],
+            fill: false,
+            borderColor: '#EC932F',
+            backgroundColor: '#EC932F',
+            pointBorderColor: '#EC932F',
+            pointBackgroundColor: '#EC932F',
+            pointHoverBackgroundColor: '#EC932F',
+            pointHoverBorderColor: '#EC932F',
+            yAxisID: 'y-axis-2'
+        },{
+            type: 'bar',
+            label: 'Independent Odds',
+            data: [],
+            fill: false,
+            backgroundColor: '#71B37C',
+            borderColor: '#71B37C',
+            hoverBackgroundColor: '#71B37C',
+            hoverBorderColor: '#71B37C',
+            yAxisID: 'y-axis-1'
+          }]
+    }
     }
     this.remOne = this.remOne.bind(this);
     this.addN = this.addN.bind(this);
@@ -19,17 +43,23 @@ class App extends Component {
     let tempDice = this.state.dice - 1;
     this.setState({
       dice: tempDice,
-      stats: oddsEach(tempDice),
-      summedStats: atLeast(tempDice)
+      data: this.comboData(tempDice)
     })
   }
   addN(n){
     let tempDice = this.state.dice + n;
     this.setState({
       dice: tempDice,
-      stats: oddsEach(tempDice),
-      summedStats: atLeast(tempDice)
+      data: this.comboData(tempDice)
     })
+  }
+
+  comboData(n){
+    let tempData = Object.assign({}, this.state.data);
+    tempData.datasets[0].data = atLeast(n);
+    tempData.datasets[1].data = oddsEach(n);
+    tempData.labels = Array.from(Array(n).keys());
+    return tempData;
   }
  
   
@@ -37,10 +67,11 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Liars Dice Stats! {this.state.dice}</h2>
+          <h2 className="dice-remaining" >Dice Remaining: {this.state.dice}</h2>
+          <h2>Liar's Dice Odds!</h2>
         </div>
         <Inputs remOne={this.remOne} addN={this.addN}/>
-        <Stats stats={this.state.stats} least={this.state.summedStats} />
+        <Stats data={this.state.data} />
       </div>
     );
   }
