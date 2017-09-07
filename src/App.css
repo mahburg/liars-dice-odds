@@ -19,6 +19,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
+  align-items: center;
 }
 .dice-remaining{
   color: red;
@@ -46,11 +47,18 @@
 
 .stats-container{
   padding: 15px;
-  /* display: grid; */
-  /* grid-template-columns: repeat(5, 1fr); */
-
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* grid-template-rows: 7fr 1fr; */
+  /* display: flex;
+  justify-content: center; */
+  align-items: center;
 }
 
-.statsItem{
-  border: 1px solid black;
+.chart{
+  grid-column: 1 / 6;
+}
+.lock-y{
+  grid-column: 5;
+  font-size: 15px;
 }
